@@ -57,13 +57,17 @@ export default {
 				trust: {
 					blue: 'hsl(var(--trust-blue))',
 					indigo: 'hsl(var(--trust-indigo))',
-					purple: 'hsl(var(--trust-purple))'
+					purple: 'hsl(var(--trust-purple))',
+					cyan: 'hsl(var(--trust-cyan))'
 				}
 			},
 			backgroundImage: {
 				'gradient-trust': 'var(--gradient-trust)',
 				'gradient-hero': 'var(--gradient-hero)',
-				'gradient-glass': 'var(--gradient-glass)'
+				'gradient-glass': 'var(--gradient-glass)',
+				'gradient-tradetrust': 'var(--gradient-tradetrust)',
+				'gradient-opencerts': 'var(--gradient-opencerts)',
+				'gradient-apostilles': 'var(--gradient-apostilles)'
 			},
 			backdropBlur: {
 				'glass': '16px'

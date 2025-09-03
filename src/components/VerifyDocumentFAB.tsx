@@ -9,7 +9,7 @@ const VerifyDocumentFAB = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {isExpanded && (
         <Card className="mb-4 w-80 bg-background/95 backdrop-blur-glass border border-border/50 shadow-float animate-slide-up">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -47,26 +47,26 @@ const VerifyDocumentFAB = () => {
         </Card>
       )}
       
-      <Button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className={cn(
-          "rounded-full h-16 w-16 shadow-float animate-float",
-          "bg-gradient-trust hover:opacity-90 transition-all duration-300",
-          isExpanded && "rotate-45"
-        )}
-      >
-        <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center">
+        <Button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className={cn(
+            "rounded-full h-16 w-16 shadow-float animate-float",
+            "bg-gradient-trust hover:opacity-90 transition-all duration-300",
+            isExpanded && "rotate-45"
+          )}
+        >
           <Shield className="h-6 w-6" />
-        </div>
-      </Button>
-      
-      {!isExpanded && (
-        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-          <div className="bg-background/95 backdrop-blur-glass border border-border/50 rounded px-2 py-1 text-xs font-medium shadow-glass">
-            Verify Document
+        </Button>
+        
+        {!isExpanded && (
+          <div className="mt-2">
+            <div className="bg-background/95 backdrop-blur-glass border border-border/50 rounded px-2 py-1 text-xs font-medium shadow-glass">
+              Verify Document
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

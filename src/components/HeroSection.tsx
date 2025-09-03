@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 const heroVariants = [
   {
-    title: "Simple Trustworthy\nVerifiable Credentials",
+    rollingWord: "Trustworthy",
     subtitle: "All",
     stats: [
       { label: "Documents Verified", value: "2.5M+" },
@@ -15,7 +15,7 @@ const heroVariants = [
     ],
   },
   {
-    title: "Simple Trade\nVerifiable Credentials", 
+    rollingWord: "Trade",
     subtitle: "TradeTrust",
     stats: [
       { label: "Documents Verified", value: "500K+" },
@@ -25,7 +25,7 @@ const heroVariants = [
     ],
   },
   {
-    title: "Simple Academic\nVerifiable Credentials",
+    rollingWord: "Academic",
     subtitle: "OpenCerts", 
     stats: [
       { label: "Documents Verified", value: "2.0M+" },
@@ -35,13 +35,10 @@ const heroVariants = [
     ],
   },
   {
-    title: "Simple Legal\nVerifiable Credentials",
+    rollingWord: "Legal",
     subtitle: "E-Apostilles",
     stats: [
-      { label: "Documents Verified", value: "###" },
-      { label: "Active Users", value: "###" },
-      { label: "Organizations", value: "###" },
-      { label: "Countries", value: "Coming Soon" },
+      { label: "Coming Soon", value: "" },
     ],
   },
 ];
@@ -64,6 +61,16 @@ const HeroSection = () => {
 
   const variant = heroVariants[currentVariant];
 
+  const handleTabClick = (index: number) => {
+    if (index !== currentVariant) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentVariant(index);
+        setIsAnimating(false);
+      }, 200);
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       {/* Animated Background */}
@@ -76,31 +83,20 @@ const HeroSection = () => {
       <div className="container mx-auto px-6 text-center relative z-10">
         {/* Main Title */}
         <div className="mb-8">
-          <h1 
-            className={cn(
-              "text-6xl md:text-7xl font-bold leading-tight transition-all duration-500",
-              isAnimating ? "opacity-0 transform -translate-y-4" : "opacity-100 transform translate-y-0"
-            )}
-          >
-            <span className="bg-gradient-trust bg-clip-text text-transparent">
-              {variant.title.split('\n').map((line, idx) => (
-                <span key={idx} className="block">{line}</span>
-              ))}
+          <h1 className="text-6xl md:text-7xl font-bold leading-tight mb-4">
+            <span className="block">Simple </span>
+            <span 
+              className={cn(
+                "block transition-all duration-500",
+                isAnimating ? "opacity-0 transform -translate-y-4" : "opacity-100 transform translate-y-0"
+              )}
+            >
+              <span className="bg-gradient-trust bg-clip-text text-transparent">
+                {variant.rollingWord}
+              </span>
             </span>
+            <span className="block">Verifiable Credentials</span>
           </h1>
-        </div>
-
-        {/* Subtitle Badge */}
-        <div className="mb-12">
-          <Badge 
-            variant="outline" 
-            className={cn(
-              "text-lg px-6 py-2 bg-background/50 backdrop-blur-glass border border-primary/20 transition-all duration-500",
-              isAnimating ? "opacity-0 transform scale-95" : "opacity-100 transform scale-100"
-            )}
-          >
-            {variant.subtitle}
-          </Badge>
         </div>
 
         {/* Description */}
@@ -109,35 +105,66 @@ const HeroSection = () => {
           credentials verification easy and interoperable for various domains.
         </p>
 
-        {/* CTA Button */}
-        <Button 
-          size="lg" 
-          className="bg-gradient-trust hover:opacity-90 text-lg px-8 py-6 rounded-full shadow-float"
-        >
-          Get Started
-        </Button>
+        {/* Tabs, Stats and Growth Container */}
+        <div className="bg-background/30 backdrop-blur-glass border border-border/30 rounded-2xl p-8 max-w-5xl mx-auto shadow-glass">
+          {/* Toggle Tabs */}
+          <div className="flex justify-center mb-8">
+            <div className="flex bg-background/40 backdrop-blur-glass rounded-full border border-border/30 p-1">
+              {heroVariants.map((tab, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleTabClick(index)}
+                  className={cn(
+                    "px-6 py-2 rounded-full text-sm font-medium transition-all duration-300",
+                    currentVariant === index
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground hover:bg-background/50"
+                  )}
+                >
+                  {tab.subtitle}
+                </button>
+              ))}
+            </div>
+          </div>
 
-        {/* Stats Section */}
-        <div className="mt-20">
+          {/* Stats Section */}
           <div 
             className={cn(
-              "grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto transition-all duration-500",
+              "transition-all duration-500 mb-6",
               isAnimating ? "opacity-0 transform translate-y-4" : "opacity-100 transform translate-y-0"
             )}
           >
-            {variant.stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground font-medium">
-                  {stat.label}
+            {variant.subtitle === "E-Apostilles" ? (
+              <div className="flex justify-center">
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+                    Coming Soon
+                  </div>
                 </div>
               </div>
-            ))}
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                {variant.stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-muted-foreground font-medium">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-          <div className="mt-8 text-sm text-muted-foreground">
-            —— {new Date().getFullYear()} growth to date
+
+          {/* Growth to Date Tag */}
+          <div className="flex justify-center">
+            <div className="bg-muted/50 backdrop-blur-glass border border-border/30 rounded-full px-4 py-1">
+              <span className="text-sm text-muted-foreground font-medium">
+                {new Date().getFullYear()} growth to date
+              </span>
+            </div>
           </div>
         </div>
       </div>

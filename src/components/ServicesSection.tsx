@@ -1,4 +1,4 @@
-import { ArrowRight, Shield, GraduationCap, FileText } from "lucide-react";
+import { ArrowRight, Shield, GraduationCap, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ const services = [
     description: "Secure trade document verification and interoperability. Build trust in international trade with cryptographically secure documents.",
     link: "/tradetrust",
     available: true,
-    gradient: "from-trust-blue to-trust-indigo",
+    gradientClass: "bg-gradient-tradetrust",
   },
   {
     icon: GraduationCap,
@@ -18,15 +18,15 @@ const services = [
     description: "Educational credential verification system. Verify academic certificates, diplomas, and professional certifications instantly.",
     link: "/opencerts", 
     available: true,
-    gradient: "from-trust-indigo to-trust-purple",
+    gradientClass: "bg-gradient-opencerts",
   },
   {
-    icon: FileText,
+    icon: Scale,
     title: "E-Apostilles",
     description: "Digital apostille verification for legal documents. The future of international document authentication and legalization.",
     link: "#",
     available: false,
-    gradient: "from-trust-purple to-primary",
+    gradientClass: "bg-gradient-apostilles",
   },
 ];
 
@@ -56,10 +56,10 @@ const ServicesSection = () => {
               className="group relative overflow-hidden bg-background/50 backdrop-blur-glass border border-border/50 hover:shadow-float transition-all duration-300"
             >
               {/* Gradient Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+              <div className={`absolute inset-0 ${service.gradientClass} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
               
               <CardHeader className="relative z-10">
-                <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${service.gradient} p-2.5 mb-4`}>
+                <div className={`w-12 h-12 rounded-lg ${service.gradientClass} p-2.5 mb-4`}>
                   <service.icon className="w-full h-full text-white" />
                 </div>
                 <CardTitle className="text-2xl font-bold">{service.title}</CardTitle>

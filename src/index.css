@@ -20,6 +20,12 @@
     --trust-blue: 217 91% 60%;
     --trust-indigo: 239 84% 67%;
     --trust-purple: 262 83% 58%;
+    --trust-cyan: 187 85% 53%;
+    
+    /* Service Gradients */
+    --gradient-tradetrust: linear-gradient(135deg, hsl(var(--trust-blue)), hsl(217 91% 70%));
+    --gradient-opencerts: linear-gradient(135deg, hsl(var(--trust-cyan)), hsl(187 85% 63%));
+    --gradient-apostilles: linear-gradient(135deg, hsl(var(--trust-purple)), hsl(262 83% 68%));
     
     /* Frosted Glass */
     --glass-bg: 0 0% 100% / 0.1;
