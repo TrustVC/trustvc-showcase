@@ -8,38 +8,36 @@ const heroVariants = [
     rollingWord: "Trustworthy",
     subtitle: "All",
     stats: [
-      { label: "Documents Verified", value: "2.5M+" },
-      { label: "Active Users", value: "60K+" },
-      { label: "Organizations", value: "250+" },
-      { label: "Countries", value: "65+" },
+      { label: "Documents Verified", value: "2.05M+" },
+      { label: "Active Users", value: "510K+" },
+      { label: "Organizations", value: "50+" },
+      { label: "Countries", value: "20+" },
     ],
   },
   {
     rollingWord: "Trade",
     subtitle: "TradeTrust",
     stats: [
-      { label: "Documents Verified", value: "500K+" },
+      { label: "Documents Verified", value: "50K+" },
       { label: "Active Users", value: "10K+" },
-      { label: "Organizations", value: "###" },
-      { label: "Countries", value: "50+" },
+      { label: "Organizations", value: "20+" },
+      { label: "Countries", value: "10+" },
     ],
   },
   {
     rollingWord: "Academic",
-    subtitle: "OpenCerts", 
+    subtitle: "OpenCerts",
     stats: [
       { label: "Documents Verified", value: "2.0M+" },
-      { label: "Active Users", value: "50K+" },
-      { label: "Organizations", value: "###" },
-      { label: "Countries", value: "###" },
+      { label: "Active Users", value: "500K+" },
+      { label: "Organizations", value: "30+" },
+      { label: "Countries", value: "SG" },
     ],
   },
   {
     rollingWord: "Legal",
     subtitle: "E-Apostilles",
-    stats: [
-      { label: "Coming Soon", value: "" },
-    ],
+    stats: [{ label: "Coming Soon", value: "" }],
   },
 ];
 
@@ -76,8 +74,14 @@ const HeroSection = () => {
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-trust-blue/5 to-trust-indigo/10">
         <div className="absolute top-20 left-10 w-72 h-72 bg-trust-blue/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-trust-indigo/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-trust-purple/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        <div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-trust-indigo/20 rounded-full blur-3xl animate-float"
+          style={{ animationDelay: "1s" }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-trust-purple/20 rounded-full blur-3xl animate-float"
+          style={{ animationDelay: "2s" }}
+        />
       </div>
 
       <div className="container mx-auto px-6 text-center relative z-10">
@@ -85,10 +89,12 @@ const HeroSection = () => {
         <div className="mb-8">
           <h1 className="text-6xl md:text-7xl font-bold leading-tight mb-4">
             <span className="block">Simple </span>
-            <span 
+            <span
               className={cn(
                 "block transition-all duration-500",
-                isAnimating ? "opacity-0 transform -translate-y-4" : "opacity-100 transform translate-y-0"
+                isAnimating
+                  ? "opacity-0 transform -translate-y-4"
+                  : "opacity-100 transform translate-y-0"
               )}
             >
               <span className="bg-gradient-trust bg-clip-text text-transparent">
@@ -101,8 +107,9 @@ const HeroSection = () => {
 
         {/* Description */}
         <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-          TrustVC is an open-source SDK and reference stack that makes 
-          credentials verification easy and interoperable for various domains.
+          One SDK, multiple verification systems. Instantly verify trade
+          documents, academic certificates, and legal apostilles powered by
+          decentralized ledger technology and open standards for digital trust.
         </p>
 
         {/* Tabs, Stats and Growth Container */}
@@ -128,10 +135,12 @@ const HeroSection = () => {
           </div>
 
           {/* Stats Section */}
-          <div 
+          <div
             className={cn(
               "transition-all duration-500 mb-6",
-              isAnimating ? "opacity-0 transform translate-y-4" : "opacity-100 transform translate-y-0"
+              isAnimating
+                ? "opacity-0 transform translate-y-4"
+                : "opacity-100 transform translate-y-0"
             )}
           >
             {variant.subtitle === "E-Apostilles" ? (
@@ -156,15 +165,6 @@ const HeroSection = () => {
                 ))}
               </div>
             )}
-          </div>
-
-          {/* Growth to Date Tag */}
-          <div className="flex justify-center">
-            <div className="bg-muted/50 backdrop-blur-glass border border-border/30 rounded-full px-4 py-1">
-              <span className="text-sm text-muted-foreground font-medium">
-                {new Date().getFullYear()} growth to date
-              </span>
-            </div>
           </div>
         </div>
       </div>

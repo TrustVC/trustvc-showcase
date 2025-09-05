@@ -43,65 +43,21 @@ const Navigation = () => {
           </Link>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center justify-center flex-1">
+          <div className="hidden md:flex items-center justify-right pr-4 flex-1">
             <div className="flex items-center space-x-8">
-              {/* Ecosystem Dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-1">
-                    Ecosystem
-                    <ChevronDown className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="bg-background/95 backdrop-blur-glass border border-border/50">
-                  <DropdownMenuItem asChild>
-                    <Link to="/tradetrust" className="cursor-pointer">
-                      TradeTrust
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/opencerts" className="cursor-pointer">
-                      OpenCerts
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem disabled className="cursor-not-allowed">
-                    E-Apostilles
-                    <span className="ml-2 text-xs bg-muted px-2 py-1 rounded">
-                      Coming Soon
-                    </span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              <Link
-                to="/gallery"
+              <a
+                href="https://afa-cdi.atlassian.net/servicedesk/customer/portal/10/group/-1"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={cn(
                   "hover:text-primary transition-colors",
-                  isActive("/gallery") ? "text-primary font-medium" : "text-muted-foreground"
-                )}
-              >
-                Gallery
-              </Link>
-
-              <Link
-                to="/support"
-                className={cn(
-                  "hover:text-primary transition-colors",
-                  isActive("/support") ? "text-primary font-medium" : "text-muted-foreground"
+                  isActive("/support")
+                    ? "text-primary font-medium"
+                    : "text-muted-foreground"
                 )}
               >
                 Support
-              </Link>
-
-              <Link
-                to="/news"
-                className={cn(
-                  "hover:text-primary transition-colors",
-                  isActive("/news") ? "text-primary font-medium" : "text-muted-foreground"
-                )}
-              >
-                News & Updates
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -137,7 +93,11 @@ const Navigation = () => {
             </DropdownMenu>
 
             {/* Contact CTA */}
-            <Button asChild variant="default" className="bg-gradient-trust hover:opacity-90">
+            <Button
+              asChild
+              variant="default"
+              className="bg-gradient-trust hover:opacity-90"
+            >
               <Link to="/contact">Contact Us</Link>
             </Button>
           </div>
