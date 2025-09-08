@@ -108,7 +108,7 @@ const Contact = () => {
                         <SelectTrigger>
                           <SelectValue placeholder="Select industry" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-gray-100">
                           <SelectItem value="education">Education</SelectItem>
                           <SelectItem value="trade">
                             International Trade
