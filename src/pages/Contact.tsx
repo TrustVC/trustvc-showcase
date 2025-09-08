@@ -7,6 +7,7 @@ import {
   Building,
   Users,
 } from "lucide-react";
+import { FormHTMLAttributes } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -56,7 +57,7 @@ const Contact = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <Card className="bg-background/50 backdrop-blur-glass border border-border/50">
-              <form name="contact-form" method="POST" data-netlify="true">
+              <form name="contact-form" netlify>
                 <CardHeader>
                   <CardTitle className="text-2xl flex items-center gap-2">
                     <Send className="h-6 w-6 text-primary" />
