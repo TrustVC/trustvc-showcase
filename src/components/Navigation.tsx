@@ -45,10 +45,8 @@ const Navigation = () => {
           {/* Navigation Links */}
           <div className="hidden md:flex items-center justify-end mr-4 flex-1">
             <div className="flex items-center space-x-8">
-              <a
-                href="https://afa-cdi.atlassian.net/servicedesk/customer/portal/10/group/-1"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/support"
                 className={cn(
                   "hover:text-primary transition-colors",
                   isActive("/support")
@@ -57,7 +55,7 @@ const Navigation = () => {
                 )}
               >
                 Support
-              </a>
+              </Link>
             </div>
           </div>
 

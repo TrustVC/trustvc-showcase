@@ -1,183 +1,229 @@
-import { Book, Code, MessageCircle, FileText, ExternalLink, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { toast } from "@/components/ui/sonner"
+import { useNavigate } from "react-router-dom"
 
-const documentationSections = [
-  {
-    title: "Getting Started",
-    description: "Quick start guides and basic concepts",
-    icon: Book,
-    items: [
-      "Installation & Setup",
-      "Your First Document",
-      "Basic Verification",
-      "Configuration Guide"
-    ]
-  },
-  {
-    title: "API Reference", 
-    description: "Complete API documentation",
-    icon: Code,
-    items: [
-      "Authentication",
-      "Document Creation", 
-      "Verification Methods",
-      "Webhook Events"
-    ]
-  },
-  {
-    title: "SDKs & Libraries",
-    description: "Language-specific implementations", 
-    icon: FileText,
-    items: [
-      "JavaScript/TypeScript",
-      "Python SDK",
-      "Java Library",
-      "REST API"
-    ]
+const formSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address." }).min(1, { message: "Email is required." }),
+  summary: z.string().min(1, { message: "Summary is required." }),
+  description: z.string().optional(),
+  whereEncountered: z.array(z.string()).optional(),
+  attachments: z.any().optional(),
+})
+
+const whereOptions = [
+  "TradeTrust Reference Website",
+  "TradeTrust Documentation Website", 
+  "TradeTrust Gallery",
+  "TradeTrust Library",
+  "TrustVC Website",
+  "OpenCerts Website",
+  "TrustVC SDK"
+]
+
+export default function Support() {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      summary: "",
+      description: "",
+      whereEncountered: [],
+      attachments: undefined,
+    },
+  })
+
+  const navigate = useNavigate()
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Mock submission - in real app, send to API
+    console.log(values)
+    
+    // Simulate success/failure for testing (80% success)
+    const isSuccess = Math.random() > 0.2
+    if (isSuccess) {
+      navigate("/support/success")
+    } else {
+      navigate("/support/error")
+    }
   }
-];
 
-const communityResources = [
-  {
-    title: "GitHub Repository",
-    description: "Source code, issues, and contributions",
-    icon: Code,
-    link: "https://github.com/trustvc"
-  },
-  {
-    title: "Community Forum",
-    description: "Ask questions and get help from the community", 
-    icon: MessageCircle,
-    link: "#"
-  },
-  {
-    title: "Developer Blog",
-    description: "Latest updates, tutorials, and best practices",
-    icon: FileText,
-    link: "#"
-  }
-];
-
-const Support = () => {
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-6">
-        {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold mb-6">
-            TrustVC{" "}
+            Support{" "}
             <span className="bg-gradient-trust bg-clip-text text-transparent">
-              Documentation
+              Request
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Everything you need to integrate TrustVC into your applications. 
-            Comprehensive guides, API references, and community resources.
+            Get help with TrustVC products and services. 
+            We'll get back to you as soon.
           </p>
         </div>
 
-        <Tabs defaultValue="documentation" className="max-w-6xl mx-auto">
-          <TabsList className="grid w-full grid-cols-3 mb-12 bg-background/50 backdrop-blur-glass">
-            <TabsTrigger value="documentation">Documentation</TabsTrigger>
-            <TabsTrigger value="tutorials">Tutorials</TabsTrigger>
-            <TabsTrigger value="community">Community</TabsTrigger>
-          </TabsList>
+        <Card className="bg-background/50 backdrop-blur-glass border border-border/50 max-w-2xl mx-auto">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-6">
+              <CardHeader>
+                <CardTitle className="text-2xl">Submit a Request</CardTitle>
+                <CardDescription>
+                  Fill out the form below to create a new support ticket.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email <span className="text-destructive">*</span></FormLabel>
+                        <FormControl>
+                          <Input placeholder="your@email.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-          <TabsContent value="documentation">
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              {documentationSections.map((section) => (
-                <Card 
-                  key={section.title}
-                  className="group bg-background/50 backdrop-blur-glass border border-border/50 hover:shadow-float transition-all duration-300"
-                >
-                  <CardHeader>
-                    <div className="w-12 h-12 rounded-lg bg-gradient-trust p-2.5 mb-4">
-                      <section.icon className="w-full h-full text-white" />
-                    </div>
-                    <CardTitle className="text-xl">{section.title}</CardTitle>
-                    <CardDescription>{section.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3">
-                      {section.items.map((item, index) => (
-                        <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary cursor-pointer transition-colors">
-                          <ChevronRight className="h-3 w-3" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
+                  <FormField
+                    control={form.control}
+                    name="summary"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Summary <span className="text-destructive">*</span></FormLabel>
+                        <FormControl>
+                          <Input placeholder="Brief description of your issue" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-          <TabsContent value="tutorials">
-            <div className="space-y-8">
-              <Card className="bg-background/50 backdrop-blur-glass border border-border/50">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Interactive Tutorials</CardTitle>
-                  <CardDescription>
-                    Step-by-step guides to get you started with TrustVC
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {[
-                    "Building Your First Verifiable Document",
-                    "Integrating TradeTrust in E-commerce",
-                    "Setting Up OpenCerts for Educational Institutions", 
-                    "Advanced Cryptographic Verification"
-                  ].map((tutorial, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 rounded-lg border border-border/30 hover:bg-muted/50 transition-colors">
-                      <div className="flex items-center gap-4">
-                        <div className="w-8 h-8 rounded-full bg-gradient-trust flex items-center justify-center text-white font-bold text-sm">
-                          {index + 1}
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Description</FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder="Provide more details about the issue..." 
+                            className="min-h-[100px]" 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="whereEncountered"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Where was this encountered?</FormLabel>
+                        <div className="space-y-2">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {whereOptions.map((option) => (
+                              <FormItem
+                                key={option}
+                                className="flex flex-row items-start space-x-3 space-y-0"
+                              >
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(option)}
+                                    onCheckedChange={(checked) => {
+                                      return checked
+                                        ? field.onChange([...(field.value || []), option])
+                                        : field.onChange(
+                                            (field.value || []).filter((value) => value !== option)
+                                          );
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className="font-normal cursor-pointer">
+                                  {option}
+                                </FormLabel>
+                              </FormItem>
+                            ))}
+                          </div>
                         </div>
-                        <span className="font-medium">{tutorial}</span>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        Start Tutorial
-                        <ChevronRight className="h-4 w-4 ml-1" />
-                      </Button>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-          <TabsContent value="community">
-            <div className="grid md:grid-cols-3 gap-8">
-              {communityResources.map((resource) => (
-                <Card 
-                  key={resource.title}
-                  className="group bg-background/50 backdrop-blur-glass border border-border/50 hover:shadow-float transition-all duration-300"
-                >
-                  <CardHeader>
-                    <div className="w-12 h-12 rounded-lg bg-gradient-trust p-2.5 mb-4">
-                      <resource.icon className="w-full h-full text-white" />
-                    </div>
-                    <CardTitle className="text-xl flex items-center gap-2">
-                      {resource.title}
-                      <ExternalLink className="h-4 w-4" />
-                    </CardTitle>
-                    <CardDescription>{resource.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button variant="outline" className="w-full group-hover:bg-gradient-trust group-hover:text-white transition-all">
-                      Visit Resource
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+                  <FormField
+                    control={form.control}
+                    name="attachments"
+                    render={() => (
+                      <FormItem>
+                        <FormLabel>Attachment</FormLabel>
+                        <FormControl>
+                          <div className="border-2 border-dashed border-border rounded-md p-6 text-center hover:border-primary transition-colors">
+                            <Input 
+                              type="file" 
+                              multiple 
+                              className="hidden"
+                              id="attachments"
+                              onChange={(e) => {
+                                // Mock handle files
+                                const files = e.target.files
+                                if (files) {
+                                  console.log('Selected files:', Array.from(files))
+                                }
+                              }}
+                            />
+                            <label 
+                              htmlFor="attachments" 
+                              className="cursor-pointer flex flex-col items-center justify-center"
+                            >
+                              <div className="w-12 h-12 mx-auto mb-4 border-2 border-dashed border-gray-300 rounded-full flex items-center justify-center">
+                                {/* Icon or text */}
+                                <span className="text-gray-500">📎</span>
+                              </div>
+                              <p className="text-sm font-medium text-muted-foreground mb-1">
+                                Drag and drop files, paste screenshots, or browse
+                              </p>
+                              <p className="text-xs text-muted-foreground mb-2">
+                                Please provide screenshot of the issue/error
+                              </p>
+                              <Button type="button" variant="outline" size="sm">
+                                Browse
+                              </Button>
+                            </label>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-gradient-trust hover:opacity-90"
+                    disabled={form.formState.isSubmitting}
+                  >
+                    Submit Request
+                  </Button>
+                </div>
+              </CardContent>
+            </form>
+          </Form>
+        </Card>
       </div>
     </div>
-  );
-};
-
-export default Support;
+  )
+}

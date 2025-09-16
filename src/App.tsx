@@ -13,6 +13,8 @@ import Contact from "./pages/Contact";
 import TradeTrust from "./pages/TradeTrust";
 import OpenCerts from "./pages/OpenCerts";
 import NotFound from "./pages/NotFound";
+import SuccessPage from "./pages/SuccessPage";
+import ErrorPage from "./pages/ErrorPage";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/support/success" element={<SuccessPage />} />
+            <Route path="/support/error" element={<ErrorPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
