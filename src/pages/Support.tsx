@@ -20,12 +20,13 @@ const formSchema = z.object({
 
 const whereOptions = [
   "TradeTrust Reference Website",
-  "TradeTrust Documentation Website", 
+  "TradeTrust Documentation Website",
   "TradeTrust Gallery",
   "TradeTrust Library",
   "TrustVC Website",
   "OpenCerts Website",
-  "TrustVC SDK"
+  "TrustVC SDK",
+  "Other"
 ]
 
 export default function Support() {
